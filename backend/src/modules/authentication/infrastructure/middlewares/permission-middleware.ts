@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import Database from '../../../shared/infrastructure/persistence/database';
+import Database from '../../../../shared/infrastructure/persistence/database';
 
 export function permissionMiddleware(requiredPermission: string) {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {

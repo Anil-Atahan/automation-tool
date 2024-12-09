@@ -23,7 +23,6 @@ import { AutomationResultResponse } from '../application/queries/get-automation-
 import { GetAutomationResultsQuery } from '../application/queries/get-automation-results/get-automation-results-query';
 import { ExecuteAutomationCommand } from '../application/commands/execute-automation/execute-automation-command';
 
-
 export const injectAutomationModule = () => {
   globalContainer.bind<AutomationRepository>('AutomationRepository').to(ORMAutomationRepository);
   globalContainer.bind<AutomationResultRepository>('AutomationResultRepository').to(ORMAutomationResultRepository);

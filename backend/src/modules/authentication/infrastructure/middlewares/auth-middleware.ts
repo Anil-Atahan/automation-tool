@@ -12,7 +12,6 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
 
-    // Safely assign to req.user
     req.user = decoded as { id: string; role: string };
 
     next();

@@ -4,9 +4,8 @@ import { createAutomation } from './automation/create-automation/create-automati
 import { executeAutomation } from './automation/execute-automation/execute-automation';
 import { getAutomation } from './automation/get-automation/get-automation';
 import { getAutomations } from './automation/get-automations/get-automations';
-import { authMiddleware } from '../../../../shared/infrastructure/middlewares/auth-middleware';
-import { permissionMiddleware } from '../../../../shared/infrastructure/middlewares/permission-middleware';
 import { PermissionName } from '../../../../shared/infrastructure/auth/permission-name';
+import { authMiddleware, permissionMiddleware } from '../../../authentication/index';
 
 const router = Router();
 

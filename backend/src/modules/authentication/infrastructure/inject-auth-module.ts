@@ -14,7 +14,6 @@ import { ORMRolePermissionRepository } from './repositories/role-permission.orm-
 import { ORMRoleRepository } from './repositories/role.orm-repository';
 import { ORMUserRepository } from './repositories/user.orm-repository';
 
-
 export const injectAuthModule = () => {
   globalContainer.bind<UserRepository>('UserRepository').to(ORMUserRepository);
   globalContainer.bind<RoleRepository>('RoleRepository').to(ORMRoleRepository);
