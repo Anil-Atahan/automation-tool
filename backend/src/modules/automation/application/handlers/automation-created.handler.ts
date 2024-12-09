@@ -1,4 +1,4 @@
-import { injectable } from 'tsyringe';
+import { injectable } from 'inversify';
 import { AutomationCreatedEvent } from '../../domain/automation/events/automation-created.event';
 import { DomainEventHandler } from '../../../../shared/application/messaging/domain-event-handler.interface';
 import logger from '../../../../shared/infrastructure/logger/logger';

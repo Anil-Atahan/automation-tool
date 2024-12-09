@@ -4,15 +4,18 @@ import { createAutomation } from './automation/create-automation/create-automati
 import { executeAutomation } from './automation/execute-automation/execute-automation';
 import { getAutomation } from './automation/get-automation/get-automation';
 import { getAutomations } from './automation/get-automations/get-automations';
+import { authMiddleware } from '../../../../shared/infrastructure/middlewares/auth-middleware';
+import { permissionMiddleware } from '../../../../shared/infrastructure/middlewares/permission-middleware';
+import { PermissionName } from '../../../../shared/infrastructure/auth/permission-name';
 
 const router = Router();
 
-router.post('/', validateCreateAutomationRequest, createAutomation);
+router.post('/', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS), validateCreateAutomationRequest, createAutomation);
 
-router.post('/execute/:id', executeAutomation);
+router.post('/execute/:id', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS), executeAutomation);
 
-router.get('/:id', getAutomation);
+router.get('/:id', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS), getAutomation);
 
-router.get('/', getAutomations);
+router.get('/', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS),  getAutomations);
 
 export default router;

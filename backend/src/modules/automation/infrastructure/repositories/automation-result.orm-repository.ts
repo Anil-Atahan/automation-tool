@@ -4,7 +4,8 @@ import { AutomationResult } from '../../domain/automation-result/automation_resu
 import { Result } from '../../../../shared/domain/result';
 import { PagedResponse } from '../../../../shared/domain/paged-response';
 import { AutomationStatus } from '../../domain/enums/automation-status';
-import { injectable } from 'tsyringe';
+import { injectable } from 'inversify';
+import logger from '../../../../shared/infrastructure/logger/logger';
 
 @injectable()
 export class ORMAutomationResultRepository implements AutomationResultRepository {
@@ -35,7 +36,7 @@ export class ORMAutomationResultRepository implements AutomationResultRepository
   }
 
   async save(automationResult: AutomationResult): Promise<Result> {
-    const [_, created] = await AutomationResultModel.upsert({
+    const [instance, created] = await AutomationResultModel.upsert({
       id: automationResult.id,
       automation_id: automationResult.automationId,
       status: automationResult.status,
@@ -44,6 +45,14 @@ export class ORMAutomationResultRepository implements AutomationResultRepository
       created_at: automationResult.createdAt,
       updated_at: automationResult.updatedAt
     });
-    return created ? Result.ok() : Result.fail('Failed to save automation result');
+
+    if (!instance) {
+      logger.error('Automation result upsert operation failed');
+      return Result.fail('Automation result upsert operation failed');
+    }
+
+    logger.info(`Automation result ${created ? 'created' : 'updated'}`);
+
+    return Result.ok();
   }
 }

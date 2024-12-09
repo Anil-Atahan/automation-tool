@@ -1,11 +1,14 @@
+import { PermissionName } from '../../../../shared/infrastructure/auth/permission-name';
+import { authMiddleware } from '../../../../shared/infrastructure/middlewares/auth-middleware';
+import { permissionMiddleware } from '../../../../shared/infrastructure/middlewares/permission-middleware';
 import { getAutomationResult } from './automation-result/get-automation-result/get-automation-result';
 import { getAutomationResults } from './automation-result/get-automation-results/get-automation-results';
 import { Router } from 'express';
 
 const router = Router();
 
-router.get('/:id', getAutomationResult);
+router.get('/:id', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS), getAutomationResult);
 
-router.get('/:automationId', getAutomationResults);
+router.get('/:automationId', authMiddleware, permissionMiddleware(PermissionName.MANAGE_AUTOMATIONS), getAutomationResults);
 
 export default router;

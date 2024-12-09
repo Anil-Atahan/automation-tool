@@ -1,7 +1,6 @@
 import globalContainer from '../../../shared/infrastructure/global-container';
 import { AutomationCreatedHandler } from '../application/handlers/automation-created.handler';
 import { DomainEventDispatcher } from '../../../shared/domain/domain-event-dispatcher';
-import { initializeModels } from './persistence/initialize-models'
 import { CreateAutomationHandler } from '../application/commands/create-automation/create-automation-handler';
 import { ExecuteAutomationHandler } from '../application/commands/execute-automation/execute-automation-handler';
 import { GetAutomationHandler } from '../application/queries/get-automation/get-automation-handler';
@@ -48,6 +47,4 @@ export const injectAutomationModule = () => {
   .to(ExecuteAutomationHandler).inTransientScope();
 
   DomainEventDispatcher.register('AutomationCreated', new AutomationCreatedHandler());
-
-  initializeModels();
 }

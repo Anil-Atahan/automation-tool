@@ -1,4 +1,4 @@
-import { injectable } from 'tsyringe';
+import { injectable } from 'inversify';
 import { AutomationRepository } from '../../../domain/automation/automation.repository';
 import { RequestHandler } from '../../../../../shared/application/messaging/request-handler';
 import { GetAutomationQuery } from './get-automation-query';

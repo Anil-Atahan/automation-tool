@@ -1,10 +1,8 @@
-import sequelize from '../../../../shared/infrastructure/persistence/database';
 import AutomationModel from '../models/automation.model';
 import AutomationResultModel from '../models/automation-result.model';
+import { Sequelize } from 'sequelize';
 
-export const initializeModels = () => {
+export const initializeAutomationModels = (sequelize: Sequelize) => {
   AutomationModel.initModel(sequelize);
   AutomationResultModel.initModel(sequelize);
 };
-
-export default sequelize;

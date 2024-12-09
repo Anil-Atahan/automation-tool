@@ -1,0 +1,5 @@
+export const PermissionName = {
+    CREATE_USER: "CREATE_USER",
+    VIEW_DASHBOARD: "VIEW_DASHBOARD",
+    MANAGE_AUTOMATIONS: "MANAGE_AUTOMATIONS",
+  };

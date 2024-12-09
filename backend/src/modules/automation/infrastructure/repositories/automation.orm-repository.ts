@@ -3,7 +3,8 @@ import { AutomationRepository } from '../../domain/automation/automation.reposit
 import { AutomationModel } from '../models/automation.model';
 import { Result } from '../../../../shared/domain/result';
 import { PagedResponse } from '../../../../shared/domain/paged-response';
-import { injectable } from 'tsyringe';
+import { injectable } from 'inversify';
+import logger from '../../../../shared/infrastructure/logger/logger';
 
 @injectable()
 export class ORMAutomationRepository implements AutomationRepository {
@@ -28,7 +29,7 @@ export class ORMAutomationRepository implements AutomationRepository {
   }
 
   async save(automation: Automation) : Promise<Result> {
-    const [_, created] = await AutomationModel.upsert({
+    const [instance, created] = await AutomationModel.upsert({
         id: automation.id,
         name: automation.name,
         url: automation.url,
@@ -38,6 +39,13 @@ export class ORMAutomationRepository implements AutomationRepository {
         updated_at: automation.updatedAt
     });
 
-    return created ? Result.ok() : Result.fail('Failed to save automation');
+    if (!instance) {
+      logger.error('Automation upsert operation failed');
+      return Result.fail('Automation upsert operation failed');
+    }
+
+    logger.info(`Automation ${created ? 'created' : 'updated'}`);
+
+    return Result.ok();
   }
 }
